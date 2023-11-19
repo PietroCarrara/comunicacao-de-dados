@@ -1,9 +1,9 @@
 function [ I, Q ] = encode_8psk( bit0, bit1, bit2 )
 %encode_8psk Encodes three bits into two signal components
     key = bit2*2^2 + bit1*2^1 + bit0*2^0; % Transform the input bits into a number for easy array indexing
-    
+
     half = cos(pi/4); % Value when element is at 45 degrees
-    
+
     % Answer in form [I, Q]
     switch key
         case 0 % 000
