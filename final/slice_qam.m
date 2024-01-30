@@ -1,6 +1,6 @@
 function [out] = slice_qam(symbol)
-% Pega um número vetor de números complexos e retorna um vetor com os símbolos 64-QAM
-% mais próximos de cada entrada
+% Pega um nï¿½mero vetor de nï¿½meros complexos e retorna um vetor com os sï¿½mbolos 64-QAM
+% mais prï¿½ximos de cada entrada
     QAM_OPTIONS = [-7 -5 -3 -1  1  3  5  7];
     out = ones(size(symbol)) * complex(999, 999);
     min_dist = ones(size(symbol)) * Inf;
@@ -10,7 +10,7 @@ function [out] = slice_qam(symbol)
             y = QAM_OPTIONS(j);
 
             dist = sqrt((real(symbol)-x).^2 + (imag(symbol)-y).^2);
-            
+
             out(dist <= min_dist) = complex(x, y);
             min_dist(dist <= min_dist) = dist(dist <= min_dist);
         end
