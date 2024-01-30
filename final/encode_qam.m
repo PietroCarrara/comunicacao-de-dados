@@ -1,16 +1,16 @@
 function [ out ] = encode_qam(bits)
     % Implementa a tabela 17-15 do IEEE 802.11
     TABLE = [-7 -5 -1 -3 7 5 1 3];
-
-    out = zeros(1, ceil(length(bits)/6));
-    for i = 1:length(out)
-        index = (i-1)*6 + 1;
-        index_final = min(index + 5, length(bits));
-
-        seq = zeros(1, 6);
-
-        seq(1:(index_final - index + 1)) = bits(index:index_final);
-
-        out(i) = complex(TABLE(binvec2dec(fliplr(seq(1:3)))+1), TABLE(binvec2dec(fliplr(seq(4:6)))+1));
-    end
+    
+    % Transforma o vetor linha de bits em uma matriz onde cada linha tem 3 bits
+    BIN_VECS = reshape(bits, 3, []).'; 
+    
+    % Transforma a matriz de bits em uma matriz de índices de duas colunas, uma real e outra imaginaria
+    INDEXES = reshape(bi2de(BIN_VECS, 'left-msb'), 2, []).' + 1;
+    
+    % Obtem os valores para a parte real e imaginaria, cada uma em uma coluna, de acordo com a tabela 17-15
+    VALUES = TABLE(INDEXES); 
+        
+    % Combina as duas colunas de valores em um vetor linha de numeros complexos
+    out = complex(VALUES(:,1), VALUES(:,2)).';
 end
